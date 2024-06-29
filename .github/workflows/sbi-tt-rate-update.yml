@@ -1,0 +1,33 @@
+name: SBI TT Rate Update
+
+on:
+  schedule:
+    - cron: '0 0,12 * * *'  # Runs the workflow at 00:00 and 12:00 UTC daily
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+    
+    - name: Download file
+      run: |
+        YEAR="$(date '+%Y')"
+        MONTH="$(date '+%m')"
+        FILE_NAME="$(date '+%Y-%m-%d-%H:%M').pdf"
+        DIRECTORY="$YEAR/$MONTH"
+        mkdir -p "$DIRECTORY"
+        wget -O "$DIRECTORY/$FILE_NAME" https://www.sbi.co.in/documents/16012/1400784/FOREX_CARD_RATES.pdf
+      
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add .
+        git commit -m "SBI TT Rate Update - $(date '+%Y-%m-%d-%H:%M')"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
