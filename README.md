@@ -4,8 +4,8 @@ This repository serves as an archive containing historical SBI TT rates since 02
 
 This repository is forked from [skbly7/sbi-tt-rates-historical](https://github.com/skbly7/sbi-tt-rates-historical)
 
-> Disclaimer:
-This repository is maintained to provide historical data on SBI TT rates. The rates are collected and stored automatically, and while efforts are made to ensure accuracy, no guarantees can be made regarding the completeness or correctness of the data.
+> [!NOTE]
+> This repository is maintained to provide historical data on SBI TT rates. The rates are collected and stored automatically, and while efforts are made to ensure accuracy, no guarantees can be made regarding the completeness or correctness of the data.
 
 ## Overview
 
