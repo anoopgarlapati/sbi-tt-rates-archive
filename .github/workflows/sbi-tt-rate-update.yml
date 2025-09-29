@@ -20,7 +20,7 @@ jobs:
         FILE_NAME="$(date '+%Y-%m-%d-%H:%M').pdf"
         DIRECTORY="$YEAR/$MONTH"
         mkdir -p "$DIRECTORY"
-        wget -O "$DIRECTORY/$FILE_NAME" https://www.sbi.co.in/documents/16012/1400784/FOREX_CARD_RATES.pdf
+        wget -O "$DIRECTORY/$FILE_NAME" https://sbi.bank.in/documents/16012/1400784/FOREX_CARD_RATES.pdf
       
     - name: Commit and push changes
       run: |
