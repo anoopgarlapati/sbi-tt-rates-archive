@@ -8,12 +8,13 @@ on:
 jobs:
   update-file:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
-    
+
     - name: Download file
+      id: download
       run: |
         YEAR="$(date '+%Y')"
         MONTH="$(date '+%m')"
@@ -21,13 +22,42 @@ jobs:
         DIRECTORY="$YEAR/$MONTH"
         mkdir -p "$DIRECTORY"
         wget -O "$DIRECTORY/$FILE_NAME" https://sbi.bank.in/documents/16012/1400784/FOREX_CARD_RATES.pdf
-      
+        echo "pdf_path=$DIRECTORY/$FILE_NAME" >> "$GITHUB_OUTPUT"
+
     - name: Commit and push changes
       run: |
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
         git add .
         git commit -m "SBI TT Rate Update - $(date '+%Y-%m-%d-%H:%M')"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
+
+    - name: Install dependencies
+      run: uv sync
+
+    - name: Update rate CSVs
+      id: update_csv
+      continue-on-error: true
+      env:
+        PDF_PATH: ${{ steps.download.outputs.pdf_path }}
+      run: uv run python scripts/daily_update.py "$PDF_PATH"
+
+    - name: Commit updated CSVs
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add rates/ 2>/dev/null || true
+        git diff --staged --quiet || git commit -m "rates: $(date +%Y-%m-%d) CSV update"
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

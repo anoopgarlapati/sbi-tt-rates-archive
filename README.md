@@ -34,9 +34,49 @@ Each file is named in the format `YYYY-MM-DD-HH:MM.pdf`, where `YYYY` is the yea
 
 You can browse the directories to find the historical SBI TT rates for specific dates. The rates are saved as PDF files and can be viewed using any standard PDF viewer.
 
+## CSV Rates
+
+In addition to raw PDFs, this repository provides pre-parsed CSV files in the `rates/` directory.
+
+```
+rates/
+  USD-INR.csv        ← one file per currency pair
+  EUR-INR.csv
+  GBP-INR.csv
+  ...
+  _metadata.csv      ← one row per processed PDF (audit trail)
+```
+
+Each CSV has the schema:
+
+```
+date,tt_buying,tt_selling,bill_buying,bill_selling,card_buying,card_selling,cn_buying,cn_selling,publication_only,source_file
+```
+
+- `date`: `YYYY-MM-DD`
+- Rate columns: decimal strings; empty string means SBI did not publish that rate for that day
+- JPY, THB, and KRW rates are stored per-unit (divided by 100 from the published per-100-unit values)
+- `publication_only`: `true` for KRW and TRY (flagged as "for publication purpose only" in SBI PDFs)
+- `source_file`: relative path to the source PDF in this repo
+
+## Scripts
+
+Requires Python ≥ 3.11 and [uv](https://docs.astral.sh/uv/).
+
+```bash
+# Parse all historical PDFs and generate initial CSVs
+uv run python scripts/backfill.py
+
+# Parse a single PDF and append to CSVs
+uv run python scripts/daily_update.py 2026/06/2026-06-20-14:00.pdf
+
+# Validate CSV integrity
+uv run python scripts/validate.py
+```
+
 ## Automation
 
-This repository is automatically updated twice daily using a GitHub Action. The action downloads the latest SBI TT rates and commits the updates to the repository. This ensures that the repository stays up-to-date with the latest available rates.
+This repository is automatically updated twice daily using a GitHub Action. The action downloads the latest SBI TT rates, commits the PDF, then parses it and updates the `rates/` CSVs in a second commit. This ensures that both the raw PDFs and the derived CSVs stay current.
 
 ## Contributions
 Contributions are welcome!  
