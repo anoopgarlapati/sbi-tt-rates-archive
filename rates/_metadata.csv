@@ -2047,3 +2047,4 @@ date,source_file,currencies_found,status,parse_warnings,processed_at
 2026-07-29,2026/07/2026-07-29-13:49.pdf,0,success,Reference rates section header not found in PDF content,2026-07-29T13:49:14
 2026-07-29,2026/07/2026-07-30-01:43.pdf,0,success,Reference rates section header not found in PDF content,2026-07-30T01:43:22
 2026-07-30,2026/07/2026-07-30-13:39.pdf,0,success,Reference rates section header not found in PDF content,2026-07-30T13:39:44
+2026-07-30,2026/07/2026-07-31-02:00.pdf,0,success,Reference rates section header not found in PDF content,2026-07-31T02:00:38
