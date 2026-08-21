@@ -2089,3 +2089,4 @@ date,source_file,currencies_found,status,parse_warnings,processed_at
 2026-08-19,2026/08/2026-08-19-12:27.pdf,0,success,Reference rates section header not found in PDF content,2026-08-19T12:27:41
 2026-08-19,2026/08/2026-08-20-00:43.pdf,0,success,Reference rates section header not found in PDF content,2026-08-20T00:44:12
 2026-08-20,2026/08/2026-08-20-12:29.pdf,0,success,Reference rates section header not found in PDF content,2026-08-20T12:29:50
+2026-08-20,2026/08/2026-08-21-00:49.pdf,0,success,Reference rates section header not found in PDF content,2026-08-21T00:49:18
