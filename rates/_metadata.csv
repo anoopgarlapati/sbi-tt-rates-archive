@@ -2237,3 +2237,4 @@ date,source_file,currencies_found,status,parse_warnings,processed_at
 2026-11-02,2026/11/2026-11-02-03:39.pdf,0,failed,No module named 'pymupdf4llm',2026-11-02T03:39:48
 2026-11-02,2026/11/2026-11-02-21:09.pdf,0,success,Reference rates section header not found in PDF content,2026-11-02T21:10:06
 2026-11-02,2026/11/2026-11-03-04:44.pdf,0,success,Reference rates section header not found in PDF content,2026-11-03T04:44:20
+2026-11-03,2026/11/2026-11-03-18:52.pdf,0,success,Reference rates section header not found in PDF content,2026-11-03T18:52:44
